@@ -1,0 +1,47 @@
+.stepper-container {
+    font-family: Arial, sans-serif;
+}
+
+.step {
+    display: none;
+}
+
+.step.active {
+    display: block;
+}
+
+.step-header {
+    display: flex;
+    align-items: center;
+}
+
+.step-number {
+    background-color: purple;
+    color: white;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.step-title {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.step-content {
+    margin: 20px 0;
+}
+
+input[type="text"] {
+    padding: 10px;
+    margin-right: 10px;
+}
+
+button {
+    padding: 10px;
+    cursor: pointer;
+}

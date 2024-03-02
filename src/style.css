@@ -1,0 +1,72 @@
+:root {
+	--primary-color: rgba(51,153,153,1);
+	--text-color: rgb(255, 255, 255);
+	--bg-color: rgb(199, 199, 199);
+
+	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+	line-height: 1.5;
+	font-weight: 400;
+
+	color: #222;
+	background-color: var(--bg-color);
+
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-text-size-adjust: 100%;
+}
+
+body {
+	margin: 0;
+	min-height: 100vh;
+}
+
+.wrapper {
+	padding: 2em;
+}
+
+.btn {
+	margin: 10px 0;
+	height: 40px;
+	outline: none;
+	padding: 5px 10px;
+	color: var(--text-color);
+	background-color: var(--primary-color);
+	cursor: pointer;
+	border: 1px solid var(--text-color);
+}
+
+.table {
+	width: 100%;
+	border: 1px solid var(--text-color);
+	box-shadow: 8px 9px 18px 0 #807f7f;
+	text-align: center;
+}
+
+.table tr {
+	height: 70px;
+	border-color: var(--text-color);
+}
+
+.table tbody tr:nth-child(odd) {
+	background-color: rgb(217,242,242);
+}
+
+.table tbody tr:nth-child(even) {
+	background-color: rgb(168, 213, 213);
+}
+
+.table thead tr {
+	background-color: var(--primary-color);
+}
+
+.table tbody tr:hover {
+	background-color: var(--primary-color);
+	cursor: pointer;
+}
+
+.table td {
+	min-width: 50px;
+}
+
