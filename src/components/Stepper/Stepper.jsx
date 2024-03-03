@@ -1,18 +1,13 @@
-import { h, Fragment } from 'preact';
 import { useState } from 'preact/hooks';
-import './Stepper.css'; // Assume you have a CSS file for styling
+import './Stepper.css';
 
-const Step = ({ stepNumber, title, children, isActive }) => (
+const Step = ({ children, isActive }) => (
 	<div className={`step ${isActive ? 'active' : ''}`}>
-		<div className="step-header">
-			<span className="step-number">{stepNumber}</span>
-			<span className="step-title">{title}</span>
-		</div>
 		{isActive && <div className="step-content">{children}</div>}
 	</div>
 );
 
-const Stepper = ({ steps }) => {
+const Stepper = ({ steps, onConfirm }) => {
 	const [activeStep, setActiveStep] = useState(1);
 	const totalSteps = 3;
 
@@ -28,18 +23,37 @@ const Stepper = ({ steps }) => {
 		}
 	};
 
-	const confirm = () => {};
+	const handleGoToStep = (step) => {
+		setActiveStep(step);
+	}
+
 
 	return (
 		<>
+			<div className="stepper-header">
+				{steps.map((step) => (
+					<div
+						className={`step-header ${activeStep === step.order ? 'active' : ''}`}
+						onClick={() => handleGoToStep(step.order)}
+					>
+						<span className="step-number">{step.order}</span>
+						<span className="step-title">{step.title}</span>
+					</div>
+				))}
+			</div>
+
 			<div className="stepper-container">
 				{steps.map((step) => (
-					<Step key={step.order} stepNumber={step.order} title={step.title} isActive={activeStep === step.order}>
-						{step.cmp}
-						{/*<input type="text" placeholder="Name*" />*/}
-						{step.order > 1 ? <button onClick={goBack}>Back</button> : <></>}
-						{step.order < steps.length ? <button onClick={goNext}>Next</button> : <></>}
-						{step.order === steps.length ? <button onClick={confirm}>Confirm</button> : <></>}
+					<Step key={step.order} isActive={activeStep === step.order}>
+						<section className="stepper-content">
+							{step.content}
+						</section>
+
+						<div className="step-actions">
+							{step.order > 1 && <button onClick={goBack}>Назад</button>}
+							{(step.order < steps.length) && <button onClick={goNext}>Далее</button>}
+							{(step.order === steps.length) && <button onClick={onConfirm}>Сгенерировать</button>}
+						</div>
 					</Step>
 				))}
 			</div>

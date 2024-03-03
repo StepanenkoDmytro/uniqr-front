@@ -1,0 +1,24 @@
+.product-description {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.product-description--image-loader {
+    margin: 15px;
+}
+
+.product-description--fields {
+    margin: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 300px;
+}
+
+.product-description--new-field {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

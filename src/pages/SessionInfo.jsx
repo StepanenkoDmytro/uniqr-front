@@ -1,4 +1,4 @@
-import BackToTable from '../components/back-to-table.jsx';
+import BackToTable from '../components/BackToTable/BackToTable.jsx';
 
 
 export default function SessionInfo(props) {

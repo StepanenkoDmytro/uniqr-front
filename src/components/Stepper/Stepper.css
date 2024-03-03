@@ -1,5 +1,17 @@
+.stepper-header {
+    display: flex;
+    justify-content: space-between;
+    margin: 50px 0;
+}
+
 .stepper-container {
     font-family: Arial, sans-serif;
+    margin: 30px 0;
+}
+
+.stepper-content {
+    display: flex;
+    justify-content: center;
 }
 
 .step {
@@ -13,10 +25,11 @@
 .step-header {
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 
 .step-number {
-    background-color: purple;
+    background-color: #626262;
     color: white;
     border-radius: 50%;
     width: 24px;
@@ -30,18 +43,21 @@
 .step-title {
     font-weight: bold;
     margin-right: 10px;
+    color: #626262;
+}
+
+.step-header.active .step-number {
+    background-color: var(--primary-color);
+}
+
+.step-header.active .step-title {
+    color: black;
 }
 
 .step-content {
     margin: 20px 0;
 }
 
-input[type="text"] {
-    padding: 10px;
-    margin-right: 10px;
-}
-
-button {
-    padding: 10px;
-    cursor: pointer;
+.step-actions {
+    margin: 30px 0;
 }

@@ -1,9 +1,9 @@
 import { render } from 'preact';
 import './style.css';
 import { useState } from 'preact/hooks';
-import GenerateSession from './pages/generate-session.jsx';
-import SessionInfo from './pages/session-info.jsx';
-import SessionsTable from './pages/sessions-table.jsx';
+import GenerateSession from './pages/GenerateSession.jsx';
+import SessionInfo from './pages/SessionInfo.jsx';
+import SessionsTable from './pages/SessionsTable.jsx';
 
 export function App() {
 	const mock = [

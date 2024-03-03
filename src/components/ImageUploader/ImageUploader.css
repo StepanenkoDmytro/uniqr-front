@@ -1,0 +1,31 @@
+.upload-form {
+    border: 2px solid var(--primary-color);
+    padding: 20px;
+    width: 300px;
+    height: 300px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.support-text {
+    padding: 15px;
+    pointer-events: none;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--bg-color);
+    text-align: center;
+}
+
+.uploaded-img {
+    pointer-events: none;
+    width: 300px;
+    height: 300px;
+}
+
+.uploaded-img__hover {
+    filter: blur(2px);
+}

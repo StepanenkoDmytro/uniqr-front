@@ -1,0 +1,35 @@
+.input-wrapper {
+    position: relative;
+    width: 100%;
+    border: 1px solid var(--primary-color);
+    margin: 15px 0;
+    padding-top: 10px;
+}
+
+.input-label {
+    position: absolute;
+    padding: 0 5px;
+    top: -9px;
+    left: 5px;
+    font-size: 12px;
+    background: var(--bg-color);
+}
+
+.input-element {
+    width: calc(100% - 30px);
+    max-width: 100%;
+    margin: 0;
+    padding: 0 15px 5px 15px;
+    text-overflow: ellipsis;
+    border: none;
+    font-family: inherit; /* Resets the font to the one used in the surrounding element */
+    font-size: 100%; /* Resets the font size to the default size of the surrounding element */
+    color: inherit; /* Resets the color to the one used in the surrounding element */
+    background-color: transparent; /* Removes any background color */
+    line-height: normal; /* Resets line height to normal */
+    appearance: none; /* Removes default browser styling */
+    -webkit-appearance: none; /* Removes default browser styling for webkit browsers */
+    -moz-appearance: none; /* Removes default browser styling for Firefox */
+    box-shadow: none; /* Removes box shadows */
+    border-radius: 0;
+}
