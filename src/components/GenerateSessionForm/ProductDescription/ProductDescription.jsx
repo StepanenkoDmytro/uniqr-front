@@ -19,15 +19,33 @@ export default function ProductDescription(props) {
 		setAdditionalFields(additionalFields.filter(f => f !== field));
 	}
 
+	const handleImageChanged = (img) => {
+		const data = {'image': img};
+		props.onDescriptionChanged(data);
+	}
+
+	const handleAdditionalFieldInput = (data, field) => {
+		const obj = {};
+		obj[field] = data;
+		props.onDescriptionChanged(obj);
+	}
+
 	return (
 		<div className="product-description">
-			<ImageUploader />
+			<ImageUploader onImageChanged={handleImageChanged}/>
 			<section className="product-description--fields">
 				<h2>Заполните информацию о продукте:</h2>
-				<Input label={'Название'} placeholder={'Введите название сессии'} />
+				<Input
+					label={'Название'}
+					placeholder={'Введите название сессии'}
+					onInput={(data) => props.onDescriptionChanged({ 'name': data })} />
 				{additionalFields.map((field, index) => (
 					<section className="d-flex align-center w-100">
-						<Input id={field} key={index} label={field} />
+						<Input
+							id={field}
+							key={index}
+							label={field}
+							onInput={(data) => handleAdditionalFieldInput(data, field)} />
 						<button className="btn btn-danger ms-2" onClick={() => handleDeleteField(field)}>Удалить</button>
 					</section>
 				))}

@@ -12,7 +12,7 @@ export default function Input({value, type, label, placeholder, id, onInput}) {
 					type={type || 'text'}
 					value={value}
 					placeholder={placeholder}
-					onInput={onInput}
+					onInput={(event) => onInput && onInput(event.target?.value)}
 				/>
 			</div>
 		</>

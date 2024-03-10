@@ -50,9 +50,9 @@ const Stepper = ({ steps, onConfirm }) => {
 						</section>
 
 						<div className="step-actions">
-							{step.order > 1 && <button onClick={goBack}>Назад</button>}
-							{(step.order < steps.length) && <button onClick={goNext}>Далее</button>}
-							{(step.order === steps.length) && <button onClick={onConfirm}>Сгенерировать</button>}
+							{step.order > 1 && <button className="btn btn-danger" onClick={goBack}>Назад</button>}
+							{(step.order < steps.length) && <button className="btn ms-2" onClick={goNext}>Далее</button>}
+							{(step.order === steps.length) && <button className="btn ms-2" onClick={onConfirm}>Сгенерировать</button>}
 						</div>
 					</Step>
 				))}
