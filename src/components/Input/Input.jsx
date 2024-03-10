@@ -1,6 +1,6 @@
 import './Input.css';
 
-export default function Input({value, type, label, placeholder, id, onInput}) {
+export default function Input({value, type, label, placeholder, id, onInput, readonly}) {
 
 	return (
 		<>
@@ -12,6 +12,7 @@ export default function Input({value, type, label, placeholder, id, onInput}) {
 					type={type || 'text'}
 					value={value}
 					placeholder={placeholder}
+					readOnly={readonly || false}
 					onInput={(event) => onInput && onInput(event.target?.value)}
 				/>
 			</div>

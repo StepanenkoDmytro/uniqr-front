@@ -6,6 +6,7 @@ import SessionInfo from './pages/SessionInfo.jsx';
 import SessionsTable from './pages/SessionsTable.jsx';
 
 export function App() {
+
 	const mock = [
 		{id: 1, name: 'test', date: Date.now(), count: 4},
 		{id: 2, name: 'second', date: Date.now(), count: 14},
@@ -20,15 +21,17 @@ export function App() {
 		GENERATE_SESSION: 'generate-session',
 	};
 
+	const [activePage, setActivePage] = useState(PAGES.SESSION_TABLE);
+	const [selectedSession, setSelectedSession] = useState(null);
+
 	const PAGE_TO_COMPONENT = {
-		[PAGES.SESSION_TABLE]: <SessionsTable sessionData={sessionData} onOpenInfo={() => handleOnOpenInfo()} onGenerateNewSessionClick={() => handleOnGenerateNewSessionClick()}/>,
-		[PAGES.SESSION_INFO]: <SessionInfo onBackToTable={() => handleOnBackToTable()} />,
+		[PAGES.SESSION_TABLE]: <SessionsTable sessionData={sessionData} onOpenInfo={(sessionId) => handleOnOpenInfo(sessionId)} onGenerateNewSessionClick={() => handleOnGenerateNewSessionClick()}/>,
+		[PAGES.SESSION_INFO]: <SessionInfo sessionId={selectedSession} onBackToTable={() => handleOnBackToTable()} />,
 		[PAGES.GENERATE_SESSION]: <GenerateSession onBackToTable={() => handleOnBackToTable()} />,
 	};
 
-	const [activePage, setActivePage] = useState(PAGES.SESSION_TABLE);
-
-	const handleOnOpenInfo = (data) => {
+	const handleOnOpenInfo = (sessionId) => {
+		setSelectedSession(sessionId);
 		setActivePage(PAGES.SESSION_INFO);
 	}
 

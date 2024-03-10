@@ -22,7 +22,7 @@ export default function SessionsTable(props) {
 				<tbody>
 				{
 					props.sessionData.map(row => (
-						<tr key={row.id} onClick={() => handleRowClick(row)}>
+						<tr key={row.id} onClick={() => handleRowClick(row.id)}>
 							<td>{row.id}</td>
 							<td>{row.name}</td>
 							<td>{new Date(row.date).toLocaleString()}</td>
