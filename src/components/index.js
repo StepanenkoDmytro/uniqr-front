@@ -5,6 +5,8 @@ import SessionSummary from './GenerateSessionForm/SessionSummary/SessionSummary.
 import ImageUploader from './ImageUploader/ImageUploader.jsx';
 import Input from './Input/Input.jsx';
 import Stepper from './Stepper/Stepper.jsx';
+import Loader from './Loader/Loader.jsx';
+
 
 export {
 	BackToTable,
@@ -14,4 +16,5 @@ export {
 	ImageUploader,
 	Input,
 	Stepper,
+	Loader,
 }

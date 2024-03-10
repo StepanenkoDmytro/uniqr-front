@@ -25,7 +25,7 @@ export default function ImageUploader({ onImageChanged }) {
 		setIsDragging(false);
 		const file = event.dataTransfer.files[0];
 
-		previewFile(file);
+		setImage(file);
 	};
 
 	const onClick = () => {
@@ -36,9 +36,13 @@ export default function ImageUploader({ onImageChanged }) {
 	const onFileChange = (event) => {
 		const file = event.target.files[0];
 
+		setImage(file);
+	};
+
+	const setImage = (file) => {
 		previewFile(file);
 		onImageChanged(file);
-	};
+	}
 
 	const previewFile = (file) => {
 		const reader = new FileReader();
