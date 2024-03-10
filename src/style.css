@@ -59,12 +59,24 @@ input {
 	align-items: center;
 }
 
+.justify-center {
+	justify-content: center;
+}
+
+.bold {
+	font-weight: bold;
+}
+
 .w-100 {
 	width: 100%;
 }
 
 .ms-2 {
 	margin-left: 0.5rem;
+}
+
+.my-2 {
+	margin: 0.5rem 0;
 }
 
 /*Move to SessionTable component*/

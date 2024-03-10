@@ -2,7 +2,7 @@ import { useState } from 'preact/hooks';
 import './ImageUploader.css';
 
 
-export default function ImageUploader() {
+export default function ImageUploader({ onImageChanged }) {
 
 	const [isDragging, setIsDragging] = useState(false);
 	const [uploadedImg, setUploadedImg] = useState(null);
@@ -37,6 +37,7 @@ export default function ImageUploader() {
 		const file = event.target.files[0];
 
 		previewFile(file);
+		onImageChanged(file);
 	};
 
 	const previewFile = (file) => {
