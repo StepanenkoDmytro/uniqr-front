@@ -63,6 +63,10 @@ input {
 	justify-content: center;
 }
 
+.justify-between {
+	justify-content: space-between;
+}
+
 .bold {
 	font-weight: bold;
 }
@@ -112,5 +116,30 @@ input {
 
 .table td {
 	min-width: 50px;
+}
+
+#printableArea, #printableArea * {
+	visibility: hidden;
+	display: none;
+	flex-wrap: wrap;
+}
+
+#printableArea div {
+	margin: 5px;
+}
+
+@media print {
+	body * {
+		visibility: hidden;
+	}
+	#printableArea, #printableArea * {
+		display: flex;
+		visibility: visible;
+	}
+	#printableArea {
+		position: absolute;
+		left: 0;
+		top: 0;
+	}
 }
 
