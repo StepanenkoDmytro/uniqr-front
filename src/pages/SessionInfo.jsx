@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'preact/hooks';
-import { BackToTable, Loader, Input } from '../components/index.js';
+import { BackToTable, Loader } from '../components/index.js';
 import apiService from '../services/ApiService.js';
 
 import './SessionInfo.css';
@@ -20,7 +20,7 @@ export default function SessionInfo(props) {
 		try {
 			const sessionInfo = await apiService.getSessionInfo(sessionId);
 			setSessionInfo(sessionInfo);
-			
+
 			generatedQRs(sessionInfo.qrs);
 		} catch (e) {
 			console.error(e);
@@ -34,22 +34,45 @@ export default function SessionInfo(props) {
 			const linkQR = sessionInfo.clientDomain + '/check-qr/' + element;
 		});
 		setQRS(qrsWithLinks);
-			
+
 	}
 
-	const handlePrint = () => {
-		QRS.forEach((qr, index) => {
-			new QRCode(document.getElementById('code-' + index), {
-				text: qr,
-				width: 100,
-				height: 100,
-				colorDark : "#000000",
-				colorLight : "#ffffff",
-				correctLevel : QRCode.CorrectLevel.H
-			})
-		});
+	const handlePrint = async () => {
+		setIsLoading(true);
+
+		// Define a function to generate QR codes asynchronously
+		const generateQRCodeAsync = async (qr, index) => {
+			return new Promise((resolve) => {
+				setTimeout(() => {
+					new QRCode(document.getElementById('code-' + index), {
+						text: qr,
+						width: 100,
+						height: 100,
+						colorDark: "#000000",
+						colorLight: "#ffffff",
+						correctLevel: QRCode.CorrectLevel.H
+					});
+					resolve();
+				}, 0); // Use setTimeout with 0ms delay for asynchronous execution
+			});
+		};
+
+		// Define the batch size for generating QR codes
+		const batchSize = 10;
+
+		// Generate QR codes in batches asynchronously
+		for (let i = 0; i < QRS.length; i += batchSize) {
+			const batchPromises = [];
+
+			for (let j = i; j < Math.min(i + batchSize, QRS.length); j++) {
+				batchPromises.push(generateQRCodeAsync(QRS[j], j));
+			}
+
+			await Promise.all(batchPromises);
+		}
 
 		window.print();
+		setIsLoading(false);
 	}
 
 	return (

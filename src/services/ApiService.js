@@ -1,6 +1,8 @@
 class ApiService {
 
-	API_BASE_URL = 'http://localhost:8081';
+	DOMAIN = 'http://45.77.60.247';
+	PORT = '8081'
+	API_BASE_URL = `${this.DOMAIN}:${this.PORT}`;
 	CLIENT_ID = location.pathname.replace('/', '');
 
 	async generateSession(data) {
