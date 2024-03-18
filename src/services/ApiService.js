@@ -1,11 +1,10 @@
 class ApiService {
 
-
-	API_BASE_URL = 'http://localhost:8080';
+	API_BASE_URL = 'http://localhost:8081';
 	CLIENT_ID = location.pathname.replace('/', '');
 
 	async generateSession(data) {
-		const apiEndpoint = '/api/v1/session/getSessions';
+		const apiEndpoint = `/api/v1/clients/${this.CLIENT_ID}/createSession`;
 		const url = this.API_BASE_URL + apiEndpoint;
 
 		const formData = new FormData();
@@ -22,7 +21,6 @@ class ApiService {
 	async getSessionInfo(sessionId) {
 		const apiEndpoint = `/api/v1/clients/${this.CLIENT_ID}/getSessions/${sessionId}`;
 		const url = this.API_BASE_URL + apiEndpoint;
-
 		return fetch(url, {
 			method: 'GET',
 		}).then(response => response.json());
@@ -30,6 +28,15 @@ class ApiService {
 
 	async getSessions() {
 		const apiEndpoint = `/api/v1/clients/${this.CLIENT_ID}/getSessions`;
+		const url = this.API_BASE_URL + apiEndpoint;
+
+		return fetch(url, {
+			method: 'GET',
+		}).then(response => response.json());
+	}
+
+	async checkQR(qrId) {
+		const apiEndpoint = `/api/v1/checkQR/${qrId}`;
 		const url = this.API_BASE_URL + apiEndpoint;
 
 		return fetch(url, {

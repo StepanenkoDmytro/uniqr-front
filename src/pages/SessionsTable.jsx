@@ -25,8 +25,8 @@ export default function SessionsTable(props) {
 						<tr key={row.id} onClick={() => handleRowClick(row.id)}>
 							<td>{row.id}</td>
 							<td>{row.name}</td>
-							<td>{new Date(row.date).toLocaleString()}</td>
-							<td>{row.count}</td>
+							<td>{new Date(row.created).toLocaleString()}</td>
+							<td>{row.amount}</td>
 						</tr>)
 					)
 				}

@@ -17,6 +17,7 @@ export default function GenerateSession(props) {
 		console.log('=== CONFIRM', formValue);
 		try {
 			const result = await apiService.generateSession(formValue);
+			props.onSessionCreated(result);
 			console.log('===', result);
 		} catch (e) {
 			console.error("Error while upload info: ", e);
