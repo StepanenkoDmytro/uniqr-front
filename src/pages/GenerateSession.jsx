@@ -10,9 +10,9 @@ export default function GenerateSession(props) {
 	const [activeStep, setActiveStep] = useState(1);
 
 	const steps = [
-		{order: 1, title: 'Описание Товара', content: <ProductDescription onDescriptionChanged={(data) => updateForm(data)}/>},
-		{order: 2, title: 'Количество QR-кодов', content: <AmountOfCodes onAmountChange={(data) => updateForm(data)} />},
-		{order: 3, title: 'Генерация QR-кодов', content: <SessionSummary form={formValue}/>},
+		{order: 1, title: 'Описание Товара', content: <ProductDescription form={formValue} onDescriptionChanged={(data) => updateForm(data)} onRemoveField={(key) => handleOnRemoveFiled(key)} />},
+		{order: 2, title: 'Количество QR-кодов', content: <AmountOfCodes form={formValue} onAmountChange={(data) => updateForm(data)} />},
+		{order: 3, title: 'Генерация QR-кодов', content: <SessionSummary form={formValue} />},
 	];
 
 	const handleConfirm = async () => {
@@ -32,6 +32,12 @@ export default function GenerateSession(props) {
 
 	const updateForm = (data) => {
 		setFormValue({...formValue, ...data});
+	}
+
+	const handleOnRemoveFiled = (key) => {
+		const copy = {...formValue};
+		delete copy[key];
+		setFormValue(copy);
 	}
 
 	return (

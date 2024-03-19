@@ -9,20 +9,29 @@ export default function ProductDescription(props) {
 	const [isAddingField, setIsAddingField] = useState(false);
 	const [additionalFields, setAdditionalFields] = useState([]);
 	const [isNeedToFocus, setIsNeedToFocus] = useState(false);
+	const [name, setName] = useState('');
+	const [image, setImage] = useState(null);
 
 	useEffect(() => {
 		isNeedToFocus && focusLastAdditionalField();
-	}, [isNeedToFocus])
+	}, [isNeedToFocus]);
+
+	useEffect(() => {
+		updateFormData();
+	}, [props.form])
+
+	const updateFormData = () => {
+		const {name, image, qrAmount, ...fields} = props.form;
+		name && setName(name);
+		image && setImage(image);
+		fields && setAdditionalFields(Array.from(Object.keys(fields)).map(key => ({key, value: fields[key]})));
+	}
 
 	const handleAddNewField = () => {
 		const inputEl = document.querySelector('#new_field');
-		setAdditionalFields([...additionalFields, inputEl.value]);
+		handleAdditionalFieldInput('', inputEl.value);
 		setIsNeedToFocus(true);
 		setIsAddingField(false);
-	}
-
-	const handleDeleteField = (field) => {
-		setAdditionalFields(additionalFields.filter(f => f !== field));
 	}
 
 	const handleImageChanged = (img) => {
@@ -30,9 +39,9 @@ export default function ProductDescription(props) {
 		props.onDescriptionChanged(data);
 	}
 
-	const handleAdditionalFieldInput = (data, field) => {
+	const handleAdditionalFieldInput = (data, fieldLabel) => {
 		const obj = {};
-		obj[field] = data;
+		obj[fieldLabel] = data;
 		props.onDescriptionChanged(obj);
 	}
 
@@ -41,7 +50,7 @@ export default function ProductDescription(props) {
 			return;
 		}
 
-		const id = additionalFields[additionalFields.length - 1];
+		const id = additionalFields[additionalFields.length - 1].key;
 		const inputEl = document.getElementById(id);
 		if (!inputEl) {
 			return;
@@ -52,21 +61,23 @@ export default function ProductDescription(props) {
 
 	return (
 		<div className="product-description">
-			<ImageUploader onImageChanged={handleImageChanged}/>
+			<ImageUploader image={image} onImageChanged={handleImageChanged}/>
 			<section className="product-description--fields">
 				<h2>Заполните информацию о продукте:</h2>
 				<Input
 					label={'Название'}
+					value={name}
 					placeholder={'Введите название сессии'}
 					onInput={(data) => props.onDescriptionChanged({ 'name': data })} />
 				{additionalFields.map((field, index) => (
 					<section className="d-flex align-center w-100">
 						<Input
-							id={field}
+							id={field.key}
 							key={index}
-							label={field}
-							onInput={(data) => handleAdditionalFieldInput(data, field)} />
-						<button className="btn btn-danger ms-2" onClick={() => handleDeleteField(field)}>Удалить</button>
+							label={field.key}
+							value={field.value}
+							onInput={(data) => handleAdditionalFieldInput(data, field.key)} />
+						<button className="btn btn-danger ms-2" onClick={() => props.onRemoveField(field.key)}>Удалить</button>
 					</section>
 				))}
 				{!isAddingField && <button className="btn w-100" onClick={() => setIsAddingField(true)}>+ Добавить поле</button>}

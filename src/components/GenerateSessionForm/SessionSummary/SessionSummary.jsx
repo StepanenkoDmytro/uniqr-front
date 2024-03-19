@@ -21,19 +21,20 @@ export default function SessionSummary({ form }) {
 		reader.readAsDataURL(file);
 	}
 
+	console.log('=== form', form)
+
 	return (
-			<section className="d-flex justify-center">
-				<div>
+			<section className="d-flex column align-center justify-center">
 					<h1>Проверьте правильность данных для сессии {form.name || ''}:</h1>
 					{img && <img className="uploaded-img my-2" src={img} />}
-					{Object.entries(form).map(([key, value]) => (
+					{Array.from(Object.keys(form)).map((key) => (
 						<p>
-							{key !== 'image' && key !== 'name' &&
-								<div key={key}><span className="bold">{ key }:</span> { value }</div>
+							{key !== 'image' && key !== 'name' && key !== 'qrAmount' &&
+								<div key={key}><span className="bold">{ key }:</span> { form[key] }</div>
 							}
 						</p>
 					))}
-				</div>
+				<div><span className="bold">Количество qr-кодов:</span> { form.qrAmount }</div>
 			</section>
 	);
 }

@@ -11,7 +11,7 @@ const Stepper = (props) => {
 	const [activeStep, setActiveStep] = useState(props.activeStep);
 	useEffect(() => {
 		setActiveStep(props.activeStep);
-	}, [props])
+	}, [props.activeStep])
 
 	const totalSteps = 3;
 

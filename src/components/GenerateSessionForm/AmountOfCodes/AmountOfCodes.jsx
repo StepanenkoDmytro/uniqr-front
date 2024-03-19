@@ -1,7 +1,7 @@
 import { Input } from '../../index.js';
 
 
-export default function AmountOfCodes({ onAmountChange }) {
+export default function AmountOfCodes({ form, onAmountChange }) {
 
 
 	return (
@@ -12,6 +12,7 @@ export default function AmountOfCodes({ onAmountChange }) {
 					<Input
 						type={'number'}
 						label={'Количество QR-кодов'}
+						value={form.qrAmount}
 						onInput={(amount) => onAmountChange({ 'qrAmount': amount })} />
 				</section>
 			</div>

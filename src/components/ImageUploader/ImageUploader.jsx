@@ -1,14 +1,18 @@
-import { useState } from 'preact/hooks';
+import { useEffect, useState } from 'preact/hooks';
 import './ImageUploader.css';
 
 const TEN_MEGABYTE = 10 * 1024 * 1024;
 
 
-export default function ImageUploader({ onImageChanged }) {
+export default function ImageUploader({ image, onImageChanged }) {
 
 	const [isDragging, setIsDragging] = useState(false);
 	const [uploadedImg, setUploadedImg] = useState(null);
 	const [isMouseEnter, setIsMouseEnter] = useState(false);
+
+	useEffect(() => {
+		image && setImage(image);
+	}, [image]);
 
 	const onDragEnter = () => {
 		setIsDragging(true);
