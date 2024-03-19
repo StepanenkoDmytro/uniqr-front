@@ -1,6 +1,6 @@
 
 import './ProductDescription.css';
-import { useState } from 'preact/hooks';
+import { useEffect, useState } from 'preact/hooks';
 import { ImageUploader, Input } from '../../index.js';
 
 
@@ -8,10 +8,16 @@ export default function ProductDescription(props) {
 
 	const [isAddingField, setIsAddingField] = useState(false);
 	const [additionalFields, setAdditionalFields] = useState([]);
+	const [isNeedToFocus, setIsNeedToFocus] = useState(false);
+
+	useEffect(() => {
+		isNeedToFocus && focusLastAdditionalField();
+	}, [isNeedToFocus])
 
 	const handleAddNewField = () => {
 		const inputEl = document.querySelector('#new_field');
 		setAdditionalFields([...additionalFields, inputEl.value]);
+		setIsNeedToFocus(true);
 		setIsAddingField(false);
 	}
 
@@ -28,6 +34,20 @@ export default function ProductDescription(props) {
 		const obj = {};
 		obj[field] = data;
 		props.onDescriptionChanged(obj);
+	}
+
+	const focusLastAdditionalField = () => {
+		if (!additionalFields?.length) {
+			return;
+		}
+
+		const id = additionalFields[additionalFields.length - 1];
+		const inputEl = document.getElementById(id);
+		if (!inputEl) {
+			return;
+		}
+
+		inputEl.focus();
 	}
 
 	return (

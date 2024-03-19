@@ -1,4 +1,4 @@
-import { useState } from 'preact/hooks';
+import { useEffect, useState } from 'preact/hooks';
 import './Stepper.css';
 
 const Step = ({ children, isActive }) => (
@@ -7,8 +7,12 @@ const Step = ({ children, isActive }) => (
 	</div>
 );
 
-const Stepper = ({ steps, onConfirm }) => {
-	const [activeStep, setActiveStep] = useState(1);
+const Stepper = (props) => {
+	const [activeStep, setActiveStep] = useState(props.activeStep);
+	useEffect(() => {
+		setActiveStep(props.activeStep);
+	}, [props])
+
 	const totalSteps = 3;
 
 	const goNext = () => {
@@ -31,7 +35,7 @@ const Stepper = ({ steps, onConfirm }) => {
 	return (
 		<>
 			<div className="stepper-header">
-				{steps.map((step) => (
+				{props.steps.map((step) => (
 					<div
 						className={`step-header ${activeStep === step.order ? 'active' : ''}`}
 						onClick={() => handleGoToStep(step.order)}
@@ -43,7 +47,7 @@ const Stepper = ({ steps, onConfirm }) => {
 			</div>
 
 			<div className="stepper-container">
-				{steps.map((step) => (
+				{props.steps.map((step) => (
 					<Step key={step.order} isActive={activeStep === step.order}>
 						<section className="stepper-content">
 							{step.content}
@@ -51,8 +55,8 @@ const Stepper = ({ steps, onConfirm }) => {
 
 						<div className="step-actions">
 							{step.order > 1 && <button className="btn btn-danger" onClick={goBack}>Назад</button>}
-							{(step.order < steps.length) && <button className="btn ms-2" onClick={goNext}>Далее</button>}
-							{(step.order === steps.length) && <button className="btn ms-2" onClick={onConfirm}>Сгенерировать</button>}
+							{(step.order < props.steps.length) && <button className="btn ms-2" onClick={goNext}>Далее</button>}
+							{(step.order === props.steps.length) && <button className="btn ms-2" onClick={props.onConfirm}>Сгенерировать</button>}
 						</div>
 					</Step>
 				))}

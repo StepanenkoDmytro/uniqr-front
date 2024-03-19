@@ -6,6 +6,7 @@ import ImageUploader from './ImageUploader/ImageUploader.jsx';
 import Input from './Input/Input.jsx';
 import Stepper from './Stepper/Stepper.jsx';
 import Loader from './Loader/Loader.jsx';
+import Error from './Error/Error.jsx';
 
 
 export {
@@ -17,4 +18,5 @@ export {
 	Input,
 	Stepper,
 	Loader,
+	Error,
 }

@@ -17,7 +17,13 @@ class ApiService {
 		return fetch(url, {
 			method: 'POST',
 			body: formData,
-		}).then(response => response.json());
+		}).then(response => {
+			if (!response.ok) {
+				throw new Error(response.status.toString());
+			}
+
+			response.json()
+		});
 	}
 
 	async getSessionInfo(sessionId) {

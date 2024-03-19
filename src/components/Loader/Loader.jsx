@@ -1,8 +1,13 @@
+import './Loader.css'
+
 export default function Loader(props) {
 
 	return (
 		<>
-			Content loading...
+			<div className="loader-outlet">
+				<div className="dynamic-indicator"></div>
+				<div className="loader-text">Подождите, идет загрузка...</div>
+			</div>
 		</>
 	);
 }

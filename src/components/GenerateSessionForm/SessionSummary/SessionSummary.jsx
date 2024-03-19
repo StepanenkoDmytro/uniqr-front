@@ -3,16 +3,20 @@ import { useEffect, useState } from 'preact/hooks';
 
 export default function SessionSummary({ form }) {
 
-	const [img, setIng] = useState(null);
+	const [img, setImg] = useState(null);
 
 	useEffect(() => {
 		previewFile(form.image);
 	}, [form.image]);
 
 	const previewFile = (file) => {
+		if (!file) {
+			return;
+		}
+
 		const reader = new FileReader();
 		reader.onloadend = () => {
-			setIng(reader.result);
+			setImg(reader.result);
 		};
 		reader.readAsDataURL(file);
 	}

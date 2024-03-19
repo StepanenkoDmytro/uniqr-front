@@ -1,0 +1,43 @@
+:root {
+--indicator-width: 20%;
+}
+
+.loader-outlet {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #fff;
+    padding: 1px;
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+}
+
+.dynamic-indicator {
+    position: absolute;
+    background-color: var(--primary-color);
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: var(--indicator-width);
+    box-shadow: 0px 0px 37px 37px var(--primary-color);
+    animation: infinity-loading 4s ease-out infinite;
+}
+
+.loader-text {
+    color: white;
+    margin: 5px auto;
+    z-index: 1;
+}
+
+@keyframes infinity-loading {
+    0% {
+        left: 0;
+    }
+    50% {
+        left: calc(100% - var(--indicator-width))
+    }
+    100% {
+        left: 0;
+    }
+}
