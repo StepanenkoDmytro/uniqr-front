@@ -1,0 +1,16 @@
+.first-check {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+    color: green;
+}
+
+.multi-check {
+    text-align: center;
+    font-size: 22px;
+}
+
+.check-list {
+    text-align: center;
+    list-style-type: none;
+}

@@ -42,7 +42,7 @@ export default function ImageUploader({ onImageChanged }) {
 	};
 
 	const setImage = (file) => {
-		if (file.size >= (1 * 1024* 1024)) {
+		if (file.size >= TEN_MEGABYTE) {
 
 			return;
 		}
