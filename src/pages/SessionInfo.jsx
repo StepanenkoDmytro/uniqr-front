@@ -20,8 +20,7 @@ export default function SessionInfo(props) {
 		try {
 			const sessionInfo = await apiService.getSessionInfo(sessionId);
 			setSessionInfo(sessionInfo);
-
-			generatedQRs(sessionInfo.qrs);
+			generatedQRs(sessionInfo);
 		} catch (e) {
 			console.error(e);
 		}
@@ -29,18 +28,14 @@ export default function SessionInfo(props) {
 		setIsLoading(false);
 	}
 
-	const generatedQRs = (qrs) => {
-		const qrsWithLinks = qrs.array.map(element => {
-			const linkQR = sessionInfo.clientDomain + '/check-qr/' + element;
-		});
+	const generatedQRs = (session) => {
+		const qrsWithLinks = session.qrs.map(element => session.clientDomain + '/qr-check/?qr_param=' + element);
 		setQRS(qrsWithLinks);
-
 	}
 
 	const handlePrint = async () => {
 		setIsLoading(true);
 
-		// Define a function to generate QR codes asynchronously
 		const generateQRCodeAsync = async (qr, index) => {
 			return new Promise((resolve) => {
 				setTimeout(() => {
@@ -53,7 +48,7 @@ export default function SessionInfo(props) {
 						correctLevel: QRCode.CorrectLevel.H
 					});
 					resolve();
-				}, 0); // Use setTimeout with 0ms delay for asynchronous execution
+				}, 0); 
 			});
 		};
 

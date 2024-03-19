@@ -41,7 +41,7 @@ export function App() {
 	}
 
 	useEffect(() => {
-		if(window.location.pathname.includes('/check-qr')) {
+		if(window.location.pathname.includes('/qr-check')) {
 			setActivePage(PAGES.CHECK_QR);
 		} else {
 		apiService.getSessions() 
