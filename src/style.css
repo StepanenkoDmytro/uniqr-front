@@ -63,6 +63,10 @@ input {
 	justify-content: center;
 }
 
+.flex-column {
+	flex-direction: column;
+}
+
 .justify-between {
 	justify-content: space-between;
 }
