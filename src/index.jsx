@@ -21,9 +21,9 @@ export function App() {
 	const [selectedSession, setSelectedSession] = useState(null);
 
 	const PAGE_TO_COMPONENT = {
-		[PAGES.SESSION_TABLE]: <SessionsTable sessionData={sessionData} onOpenInfo={(sessionId) => handleOnOpenInfo(sessionId)} onGenerateNewSessionClick={() => handleOnGenerateNewSessionClick()}/>,
+		[PAGES.SESSION_TABLE]: <SessionsTable sessionData={sessionData} onOpenInfo={(sessionId) => handleOnOpenInfo(sessionId)} onGenerateNewSessionClick={() => handleOnGenerateNewSessionClick()} />,
 		[PAGES.SESSION_INFO]: <SessionInfo sessionId={selectedSession} onBackToTable={() => handleOnBackToTable()} />,
-		[PAGES.GENERATE_SESSION]: <GenerateSession onBackToTable={() => handleOnBackToTable()} onSessionCreated={(session) => handleOnOpenInfo(session.id)}/>,
+		[PAGES.GENERATE_SESSION]: <GenerateSession onBackToTable={() => handleOnBackToTable()} onSessionCreated={(session) => handleOnOpenInfo(session.id)} />,
 		[PAGES.CHECK_QR]: <CheckQR />,
 	};
 
@@ -44,10 +44,9 @@ export function App() {
 		if(window.location.pathname.includes('/qr-check')) {
 			setActivePage(PAGES.CHECK_QR);
 		} else {
-		apiService.getSessions() 
+		apiService.getSessions()
 			.then(data => {
-				console.log(data);
-				setSessionData(data); 
+				setSessionData(data);
 			})
 			.catch(error => {
 				console.error('Error fetching sessions:', error);

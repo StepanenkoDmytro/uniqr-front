@@ -21,7 +21,7 @@ export default function SessionsTable(props) {
 				</thead>
 				<tbody>
 				{
-					props.sessionData.map(row => (
+					props.sessionData?.length && props.sessionData.map(row => (
 						<tr key={row.id} onClick={() => handleRowClick(row.id)}>
 							<td>{row.id}</td>
 							<td>{row.name}</td>

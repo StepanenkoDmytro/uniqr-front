@@ -9,7 +9,7 @@ export default function SessionInfo(props) {
 
 	const [sessionInfo, setSessionInfo] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
-	const [QRS, setQRS] = useState([]);
+	const [qrList, setQrList] = useState([]);
 
 	useEffect(() => {
 		fetchSessionInfo(props.sessionId);
@@ -30,7 +30,7 @@ export default function SessionInfo(props) {
 
 	const generatedQRs = (session) => {
 		const qrsWithLinks = session.qrs.map(element => session.clientDomain + '/qr-check/?qr_param=' + element);
-		setQRS(qrsWithLinks);
+		setQrList(qrsWithLinks);
 	}
 
 	const handlePrint = async () => {
@@ -41,51 +41,65 @@ export default function SessionInfo(props) {
 				setTimeout(() => {
 					new QRCode(document.getElementById('code-' + index), {
 						text: qr,
-						width: 100,
-						height: 100,
+						width: 50,
+						height: 50,
 						colorDark: "#000000",
 						colorLight: "#ffffff",
 						correctLevel: QRCode.CorrectLevel.H
 					});
 					resolve();
-				}, 0); 
+				}, 0);
 			});
 		};
 
 		// Define the batch size for generating QR codes
-		const batchSize = 10;
+		const batchSize = 5;
 
 		// Generate QR codes in batches asynchronously
-		for (let i = 0; i < QRS.length; i += batchSize) {
+		for (let i = 0; i < qrList.length; i += batchSize) {
 			const batchPromises = [];
 
-			for (let j = i; j < Math.min(i + batchSize, QRS.length); j++) {
-				batchPromises.push(generateQRCodeAsync(QRS[j], j));
+			for (let j = i; j < Math.min(i + batchSize, qrList.length); j++) {
+				batchPromises.push(generateQRCodeAsync(qrList[j], j));
 			}
 
 			await Promise.all(batchPromises);
 		}
 
-		window.print();
 		setIsLoading(false);
+		window.print();
+	}
+
+	const renderLoading = () => {
+		return (
+		<div className="h-100 d-flex align-center">
+			<Loader />
+		</div>
+		);
+	}
+
+	const renderInfo = () => {
+		return (
+			<section>
+				<div className="d-flex justify-between">
+					<BackToTable onClick={() => props.onBackToTable()} />
+					<button className="session--print-qrs btn" onClick={handlePrint}>
+						🖨 <span className="ms-2">Распечатать QR-коды</span>
+					</button>
+				</div>
+
+				<SessionComponent sessionInfo={sessionInfo} />
+
+			</section>
+		);
 	}
 
 	return (
-		<section>
-			<div className="d-flex justify-between">
-				<BackToTable onClick={() => props.onBackToTable()} />
-				<button className="session--print-qrs btn" onClick={handlePrint}>
-							🖨 <span className="ms-2">Распечатать QR-коды</span>
-				</button>
-			</div>
-
-			{isLoading || !sessionInfo
-				? <Loader />
-				: <SessionComponent sessionInfo={sessionInfo} />
-			}
+		<>
+			{ isLoading || !sessionInfo ? renderLoading() : renderInfo() }
 			<section id="printableArea">
-				{QRS.map((qr, index) => <div id={'code-' + index} key={index}></div>)}
+				{qrList.map((qr, index) => <div id={'code-' + index} key={index}></div>)}
 			</section>
-		</section>
+		</>
 	);
 }

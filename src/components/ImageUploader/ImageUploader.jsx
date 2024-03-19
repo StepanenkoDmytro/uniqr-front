@@ -1,6 +1,8 @@
 import { useState } from 'preact/hooks';
 import './ImageUploader.css';
 
+const TEN_MEGABYTE = 10 * 1024 * 1024;
+
 
 export default function ImageUploader({ onImageChanged }) {
 
@@ -40,6 +42,11 @@ export default function ImageUploader({ onImageChanged }) {
 	};
 
 	const setImage = (file) => {
+		if (file.size >= (1 * 1024* 1024)) {
+
+			return;
+		}
+
 		previewFile(file);
 		onImageChanged(file);
 	}
@@ -83,7 +90,14 @@ export default function ImageUploader({ onImageChanged }) {
 				{(!uploadedImg || isMouseEnter || isDragging) && <div className="support-text">
 					{isDragging ?
 						<span>Отпустите изображение здесь ...</span> :
-						<span>Перетащите изображение или кликните здесь для загрузки</span>
+						<span>
+							Перетащите изображение или кликните здесь для загрузки
+							<br />
+							<p className="mt-2 text-danger">
+								Изображения больше 10MB игнорируются!
+							</p>
+
+						</span>
 					}
 				</div>}
 
