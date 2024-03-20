@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'preact/hooks';
+import SessionComponent from '../../SessionComponent/SessionComponent';
 
 
 export default function SessionSummary({ form }) {
@@ -26,14 +27,7 @@ export default function SessionSummary({ form }) {
 	return (
 			<section className="d-flex column align-center justify-center">
 					<h1>Проверьте правильность данных для сессии {form.name || ''}:</h1>
-					{img && <img className="uploaded-img my-2" src={img} />}
-					{Array.from(Object.keys(form)).map((key) => (
-						<p>
-							{key !== 'image' && key !== 'name' && key !== 'qrAmount' &&
-								<div key={key}><span className="bold">{ key }:</span> { form[key] }</div>
-							}
-						</p>
-					))}
+					{img && <SessionComponent sessionInfo={{...form, imageURL: img}}/>}
 				<div><span className="bold">Количество qr-кодов:</span> { form.qrAmount }</div>
 			</section>
 	);

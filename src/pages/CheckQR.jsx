@@ -36,17 +36,29 @@ export default function CheckQR() {
                 <section>
                     {qrInfo.dates.length === 0 
                     ? <p class="first-check">Поздравляем с покупкой. У вас оригинальньій товар!</p>
-                    : <div class="d-flex justify-center flex-column">
-                        <p class="multi-check">Этот товар уже проверялся {qrInfo.dates.length}-раз(a).</p>
-                        <p class="multi-check">Если это были не вы - возможно у вас подделка. Обратитесь к продавцу или напишите нашим консультантам.</p>
-                        <ul class="check-list">
+                    : <div class="d-flex justify-center">
+                        <div class="multi-check">
+                            <p class="multi-check--text">Этот товар уже проверялся {qrInfo.dates.length}-раз(a).</p>
+                            <p class="multi-check--text">Если это были не вы - возможно у вас подделка. Обратитесь к продавцу или напишите нашим консультантам.</p>
+                        </div>
+                        <table className="table">
+                            <thead>
+                                <tr>
+                                    <th>Дата</th>
+                                </tr>
+                            </thead>
+                            <tbody>
                             {qrInfo.dates.slice(-10).map((date, index) => (
-                                <li key={index}>{date}</li>
+                                <tr>
+                                    <td>{new Date(date).toLocaleString()}</td>
+                                </tr>
                             ))}
-                        </ul>
+                            </tbody>
+                        </table>
                     </div>}
                 </section>
               </div>
         }
-        </>);
+        </>
+    );
 }

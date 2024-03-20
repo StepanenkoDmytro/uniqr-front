@@ -34,12 +34,6 @@ export default function GenerateSession(props) {
 		setFormValue({...formValue, ...data});
 	}
 
-	const handleOnRemoveFiled = (key) => {
-		const copy = {...formValue};
-		delete copy[key];
-		setFormValue(copy);
-	}
-
 	return (
 		<>
 			<BackToTable onClick={() => props.onBackToTable()}/>

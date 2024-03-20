@@ -13,6 +13,7 @@ export default function SessionComponent(props) {
 	}
 
     useEffect(() => {
+		console.log(props);
         parseDescription(props.sessionInfo.desc);
     }, [props]);
 
