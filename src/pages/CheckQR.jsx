@@ -36,15 +36,15 @@ export default function CheckQR() {
                 <section>
                     {qrInfo.dates.length === 0 
                     ? <p class="first-check">Поздравляем с покупкой. У вас оригинальньій товар!</p>
-                    : <div class="d-flex justify-center">
-                        <div class="multi-check">
-                            <p class="multi-check--text">Этот товар уже проверялся {qrInfo.dates.length}-раз(a).</p>
-                            <p class="multi-check--text">Если это были не вы - возможно у вас подделка. Обратитесь к продавцу или напишите нашим консультантам.</p>
+                    : <div class="multi-check">
+                        <div class="multi-check--text">
+                            <p class="multi-check--text-primary">Товар уже проверялся {qrInfo.dates.length}-раз(a).</p>
+                            <p>Если это были не вы - возможно у вас подделка. Обратитесь к продавцу или напишите нашим консультантам.</p>
                         </div>
                         <table className="table">
                             <thead>
                                 <tr>
-                                    <th>Дата</th>
+                                    <th>Дата проверок</th>
                                 </tr>
                             </thead>
                             <tbody>

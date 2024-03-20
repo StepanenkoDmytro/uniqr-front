@@ -13,7 +13,6 @@ export default function SessionComponent(props) {
 	}
 
     useEffect(() => {
-		console.log(props);
         parseDescription(props.sessionInfo.desc);
     }, [props]);
 
@@ -41,7 +40,6 @@ export default function SessionComponent(props) {
 							</section>
 						))}
 					</div>
-					
 				</section>
     );
 }

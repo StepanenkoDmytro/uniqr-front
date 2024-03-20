@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'preact/hooks';
-import { BackToTable, Loader } from '../components/index.js';
+import { BackToTable, Input, Loader } from '../components/index.js';
 import apiService from '../services/ApiService.js';
 
 import './SessionInfo.css';
@@ -10,6 +10,7 @@ export default function SessionInfo(props) {
 	const [sessionInfo, setSessionInfo] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
 	const [qrList, setQrList] = useState([]);
+	const [qrSize, setQrSize] = useState(50);
 
 	useEffect(() => {
 		fetchSessionInfo(props.sessionId);
@@ -33,6 +34,10 @@ export default function SessionInfo(props) {
 		setQrList(qrsWithLinks);
 	}
 
+	const handleChangeWidth = (value) => {
+		setQrSize(value); 
+	};
+
 	const handlePrint = async () => {
 		setIsLoading(true);
 
@@ -41,8 +46,8 @@ export default function SessionInfo(props) {
 				setTimeout(() => {
 					new QRCode(document.getElementById('code-' + index), {
 						text: qr,
-						width: 50,
-						height: 50,
+						width: qrSize,
+						height: qrSize,
 						colorDark: "#000000",
 						colorLight: "#ffffff",
 						correctLevel: QRCode.CorrectLevel.H
@@ -83,13 +88,23 @@ export default function SessionInfo(props) {
 			<section>
 				<div className="d-flex justify-between">
 					<BackToTable onClick={() => props.onBackToTable()} />
-					<button className="session--print-qrs btn" onClick={handlePrint}>
-						🖨 <span className="ms-2">Распечатать QR-коды</span>
-					</button>
+					<div class="d-flex">
+						<div class="qrs-action--size">
+							<Input
+								label={'Ширина (px)'}
+								placeholder={'мин 50'}
+								value={qrSize}
+								type="number"
+								id="session-name" 
+								onInput={(value) => handleChangeWidth(value)}/>
+						</div>
+						<button className="qrs-action--print btn" onClick={handlePrint}>
+							🖨 <span className="ms-2">Распечатать QR-коды</span>
+						</button>
+					</div>
 				</div>
 
 				<SessionComponent sessionInfo={sessionInfo} />
-
 			</section>
 		);
 	}

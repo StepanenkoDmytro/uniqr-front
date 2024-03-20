@@ -22,8 +22,6 @@ export default function SessionSummary({ form }) {
 		reader.readAsDataURL(file);
 	}
 
-	console.log('=== form', form)
-
 	return (
 			<section className="d-flex column align-center justify-center">
 					<h1>Проверьте правильность данных для сессии {form.name || ''}:</h1>

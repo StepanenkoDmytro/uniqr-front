@@ -6,14 +6,40 @@
 }
 
 .multi-check {
-    padding-top: 40px;
+    display: flex;
+    justify-content: center;
 }
 
 .multi-check--text {
+    width: 350px;
+    margin: 15px;
+}
+
+.multi-check--text-primary {
+    font-size: 22px !important;
+    font-weight: 600 !important;
+    margin-bottom: 10px;
+}
+
+.multi-check--text p {
     text-align: center;
-    font-size: 22px;
-    font-weight: 600;
+    font-size: 18px;
+    font-weight: 500;
     color: var(--danger-color);
+}
+
+.multi-check .table {
+    width: 300px;
+    margin: 15px;
+}
+
+.multi-check .table tr {
+    height: 50px;
+}
+
+.multi-check .table tbody tr:nth-child(odd),
+.multi-check .table tbody tr:nth-child(even) {
+    background-color: rgb(217, 242, 242);
 }
 
 .check-list {
