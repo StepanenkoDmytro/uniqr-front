@@ -1,6 +1,6 @@
 class ApiService {
 
-	DOMAIN = 'http://45.77.60.247';
+	DOMAIN = 'https://pegazzo.online';
 	PORT = '8081'
 	API_BASE_URL = `${this.DOMAIN}:${this.PORT}`;
 	CLIENT_ID = location.pathname.replace('/', '');

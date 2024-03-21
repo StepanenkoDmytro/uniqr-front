@@ -17,11 +17,12 @@ export function App() {
 	};
 
 	const [sessionData, setSessionData] = useState([]);
+	const [isSessionDataLoading, setSessionDataLoading] = useState(true);
 	const [activePage, setActivePage] = useState(PAGES.SESSION_TABLE);
 	const [selectedSession, setSelectedSession] = useState(null);
 
 	const PAGE_TO_COMPONENT = {
-		[PAGES.SESSION_TABLE]: <SessionsTable sessionData={sessionData} onOpenInfo={(sessionId) => handleOnOpenInfo(sessionId)} onGenerateNewSessionClick={() => handleOnGenerateNewSessionClick()} />,
+		[PAGES.SESSION_TABLE]: <SessionsTable sessionData={sessionData} isLoading={isSessionDataLoading} onOpenInfo={(sessionId) => handleOnOpenInfo(sessionId)} onGenerateNewSessionClick={() => handleOnGenerateNewSessionClick()} />,
 		[PAGES.SESSION_INFO]: <SessionInfo sessionId={selectedSession} onBackToTable={() => handleOnBackToTable()} />,
 		[PAGES.GENERATE_SESSION]: <GenerateSession onBackToTable={() => handleOnBackToTable()} onSessionCreated={(session) => handleOnOpenInfo(session.id)} />,
 		[PAGES.CHECK_QR]: <CheckQR />,
@@ -43,16 +44,27 @@ export function App() {
 	useEffect(() => {
 		if(window.location.pathname.includes('/qr-check')) {
 			setActivePage(PAGES.CHECK_QR);
-		} else {
+		}
+
+		if (activePage === PAGES.SESSION_TABLE) {
+			uploadSessionInfo();
+		}
+	}, [activePage]);
+
+	const uploadSessionInfo = () => {
+		setSessionData([]);
+		setSessionDataLoading(true);
+
 		apiService.getSessions()
 			.then(data => {
 				setSessionData(data);
+				setSessionDataLoading(false);
 			})
 			.catch(error => {
 				console.error('Error fetching sessions:', error);
+				setSessionDataLoading(false);
 			});
-		}
-	}, []);
+	}
 
 	return (
 		<section className="wrapper">
