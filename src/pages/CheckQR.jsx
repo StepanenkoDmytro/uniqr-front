@@ -26,6 +26,9 @@ export default function CheckQR() {
 
     useEffect(() => {
         fetchQrInfo();
+        window.parent.postMessage({
+            frameHeight: document.body.scrollHeight
+        }, '*');
     }, [])
     return (
         <>
