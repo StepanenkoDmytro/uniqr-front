@@ -1,34 +1,35 @@
+# Використовуємо Node.js як базовий образ
 FROM node:18 as build
 
-# Set the working directory in the container
+# Встановлюємо робочий каталог у контейнері
 WORKDIR /app
 
-# Copy package.json and package-lock.json to the working directory
+# Копіюємо package.json та package-lock.json до робочого каталогу
 COPY package*.json ./
 
-# Install dependencies
+# Встановлюємо залежності
 RUN npm install
 
-# Copy the entire application code to the container
+# Копіюємо весь код додатку до контейнера
 COPY . .
 
-# Build the React app for production
+# Будуємо React додаток для продакшну
 RUN npm run build
 
-# Use Nginx as the production server
-FROM nginx:alpine
+# Запускаємо продакшн сервер
+FROM node:18
 
-# Copy the built React app to Nginx's web server directory
-COPY --from=build /app/dist /usr/share/nginx/html
+# Встановлюємо робочий каталог у контейнері
+WORKDIR /app
 
-# Copy nginx.conf to Nginx's configuration directory
-COPY nginx.conf /etc/nginx/nginx.conf
+# Копіюємо зібрану версію додатку
+COPY --from=build /app/build ./build
 
-# Copy cert to Nginx's configuration directory
-COPY pegazzo-online.crt /etc/nginx/pegazzo-online.crt
+# Встановлюємо сервер для обслуговування статичних файлів
+RUN npm install -g serve
 
-# Expose port 80 for the Nginx server
-EXPOSE 80
+# Відкриваємо порт 3000 (або інший, на якому ви будете запускати додаток)
+EXPOSE 3000
 
-# Start Nginx when the container runs
-CMD ["nginx", "-g", "daemon off;"]
+# Запускаємо додаток
+CMD ["serve", "-s", "build", "-l", "3000"]
