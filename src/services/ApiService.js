@@ -1,13 +1,13 @@
 class ApiService {
 
-	DOMAIN = 'https://pegazzo.online';
-	PORT = '8081'
-	API_BASE_URL = `${this.DOMAIN}:${this.PORT}`;
+	DOMAIN = 'https://pegazzo.online/uniqr';
+	// PORT = '8081'
+	// API_BASE_URL = `${this.DOMAIN}:${this.PORT}`;
 	CLIENT_ID = location.pathname.replace('/', '');
 
 	async generateSession(data) {
 		const apiEndpoint = `/api/v1/clients/${this.CLIENT_ID}/createSession`;
-		const url = this.API_BASE_URL + apiEndpoint;
+		const url = this.DOMAIN + apiEndpoint;
 
 		const formData = new FormData();
 		Object.entries(data).forEach(([key, value]) => {
@@ -22,7 +22,7 @@ class ApiService {
 
 	async getSessionInfo(sessionId) {
 		const apiEndpoint = `/api/v1/clients/${this.CLIENT_ID}/getSessions/${sessionId}`;
-		const url = this.API_BASE_URL + apiEndpoint;
+		const url = this.DOMAIN + apiEndpoint;
 		return fetch(url, {
 			method: 'GET',
 		}).then(response => response.json());
@@ -30,7 +30,7 @@ class ApiService {
 
 	async getSessions() {
 		const apiEndpoint = `/api/v1/clients/${this.CLIENT_ID}/getSessions`;
-		const url = this.API_BASE_URL + apiEndpoint;
+		const url = this.DOMAIN + apiEndpoint;
 
 		return fetch(url, {
 			method: 'GET',
@@ -39,7 +39,7 @@ class ApiService {
 
 	async checkQR(qrId) {
 		const apiEndpoint = `/api/v1/checkQR/${qrId}`;
-		const url = this.API_BASE_URL + apiEndpoint;
+		const url = this.DOMAIN + apiEndpoint;
 
 		return fetch(url, {
 			method: 'GET',
